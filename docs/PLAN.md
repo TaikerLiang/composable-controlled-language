@@ -140,7 +140,7 @@ Three consequences:
 3. **Strength words are content.** The linter flags an *ambiguous* strength
    word. It never suggests removing MUST, MUST NOT, MAY, CAN, or a hedge.
 4. **Rules are data; checkers are code.** A rule is a TOML file; a profile is
-   a directory; the engine knows seven checker kinds and no project.
+   a directory; the engine knows eight checker kinds and no project.
 5. **Deterministic, judgment, or both — declared per rule.** `lint` reports
    judgment rules as `not_run`, never as passed.
 6. **Green means "no configured detectable violation".** `Delete the
@@ -214,6 +214,7 @@ written under another version is refused (§ 4.5).
 | element | treatment | source |
 |---|---|---|
 | fenced code, HTML blocks, link reference definitions | not prose; skipped | framework |
+| blockquotes | quoted text; skipped | framework, by analogy with 8.6 |
 | YAML front matter | string values of configured keys (default `description`) **are prose**; all other keys skipped | framework |
 | headings | one word each; never length-checked; phrase rules apply | derived (8.6 titles) |
 | table cells | each cell is its own prose region | framework |
@@ -295,6 +296,7 @@ Checker kinds in v0.1 (the only code that knows how to find things):
 | `phrase` | any of a phrase list, whole-word, case-insensitive | `phrases`, optional `allow` |
 | `pattern` | a regex over one sentence, named groups feed the message | `pattern`; optional `subject = "actor" \| "non-actor" \| "any"` (classifies the noun phrase before the match against glossary actors) ; optional `clause = "action" \| "any"` |
 | `list` | structural list defects | `dangling_conjunction`, `lead_in_colon` |
+| `insertion` | stacked dash insertions, nested or mixed parentheses (BASE-S05) | `max_dash_insertions` |
 | `glossary` | a forbidden or non-canonical member of a glossary concept in scope | reads the merged glossary (§ 4.7) |
 | `judgment` | nothing at lint time; validates fixtures; exports prompts | `prompt` |
 
@@ -537,7 +539,7 @@ day-one estimate on Roz Gate's runtime surfaces.
 | BASE-S01 | Sentence over the surface cap (20 / 25), counted per § 4.1 | length | derived 5.1, 6.3, 8.4–8.7 | warning / advisory | ~520 |
 | BASE-S02 | Semicolon in prose | char | derived 8.1 | error / warning | ~366 |
 | BASE-S03 | Two instructions in one sentence, joined by a **sequence marker**: `then`, `and then`, `after that`, `;`, or ` — ` between two imperative heads (glossary `imperative_verbs`) | pattern | derived 5.2 | warning / advisory | tens |
-| BASE-S05 | Stacked insertions: more than one dash insertion in a sentence, or a parenthetical nested in a parenthetical or a dash insertion | pattern | framework, inspired 4.1, 8.3 | warning / advisory | hundreds |
+| BASE-S05 | Stacked insertions: more than one dash insertion in a sentence, or a parenthetical nested in a parenthetical or a dash insertion | insertion | framework, inspired 4.1, 8.3 | warning / advisory | hundreds |
 | BASE-S06 | Latin abbreviation: `e.g.`, `i.e.`, `etc.`, `cf.`, `vs.`, `viz.` | phrase | derived GR-6 | warning / advisory | few |
 | BASE-S07 | A list item ends in `and` / `or`; a list lead-in lacks its colon | list | derived 4.3 | warning / warning | few |
 | BASE-S08 | Two imperative heads joined by **bare `and`**: deterministic signal only; the judgment prompt asks whether the actions are simultaneous (STE's exception) or sequential (then S03 applies) | pattern + judgment (`both`) | derived 5.2 | advisory / advisory | tens |
@@ -755,7 +757,7 @@ Each step has a test that must be red before it and green after it.
    profile loading; resolution and merge per § 4.3 → `test_rules.py`,
    `test_compose.py` (fixture profiles, every error case).
 3. Checker kinds `length`, `char`, `phrase`, `pattern` (with `subject`,
-   `clause`), `list`, `glossary`, `judgment` (fixture-only) → the twelve
+   `clause`), `list`, `insertion`, `glossary`, `judgment` (fixture-only) → the twelve
    BASE rules with fixtures; `test_redproof.py` flips every rule both ways.
 4. `config.py`: `.controlled-english.toml`, surfaces, `front_matter_keys`,
    severity overrides → `test_config.py`.

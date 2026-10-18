@@ -1,0 +1,10 @@
+# Dogfood: this repository lints its own prose. Rule titles and messages are checked as
+# runtime prose and rationales as explanatory prose by `controlled-english check-fixtures`.
+profiles = ["agent"]
+
+[surfaces]
+explanatory = ["README.md", "docs/**/*.md", "profiles/**/*.md"]
+ignore      = ["tests/**", "references/**"]
+
+[baseline]
+mode = "off"
