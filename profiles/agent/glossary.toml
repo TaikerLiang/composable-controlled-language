@@ -1,0 +1,2 @@
+# Generic actors for subject classification. A project profile adds its own.
+actors = ["you", "the agent", "the user", "the human", "the maintainer"]

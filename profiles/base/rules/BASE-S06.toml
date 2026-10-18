@@ -1,0 +1,22 @@
+id       = "BASE-S06"
+revision = 1
+title    = "No Latin abbreviations"
+layer    = "base"
+check    = "deterministic"
+kind     = "phrase"
+source   = "ste-derived"
+lineage  = ["STE GR-6"]
+severity = { runtime = "warning", explanatory = "advisory" }
+message  = "`{match}` is a Latin abbreviation. Write the English words: for example, that is, and so on."
+rationale = """
+Latin abbreviations are read differently by different readers, and some confuse
+`e.g.` with `i.e.`. STE's general rules exclude them. Inside inline code they are
+code and are not counted.
+"""
+
+[params]
+phrases = ["e.g.", "i.e.", "etc.", "cf.", "vs.", "viz.", "et al."]
+
+[[examples]]
+bad  = "Run the fast checks, e.g. lint and the unit tests."
+good = "Run the fast checks, for example lint and the unit tests."

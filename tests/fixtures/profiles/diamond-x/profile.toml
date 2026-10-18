@@ -1,0 +1,4 @@
+name    = "diamond-x"
+extends = ["base"]
+[severity]
+"BASE-S02" = { runtime = "advisory" }

@@ -1,0 +1,12 @@
+id = "BASE-S02"
+revision = 1
+title = "duplicate"
+layer = "dup-rule"
+check = "deterministic"
+kind = "char"
+source = "framework"
+severity = "warning"
+message = "dup"
+rationale = "dup"
+[params]
+chars = [";"]

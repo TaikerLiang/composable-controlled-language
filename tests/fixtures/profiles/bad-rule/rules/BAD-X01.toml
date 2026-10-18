@@ -1,0 +1,12 @@
+id = "BAD-X01"
+revision = 1
+title = "claims lineage without saying so"
+layer = "bad-rule"
+check = "deterministic"
+kind = "char"
+source = "ste-derived"
+severity = "warning"
+message = "x"
+rationale = "x"
+[params]
+chars = ["!"]

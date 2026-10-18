@@ -1,0 +1,25 @@
+id       = "BASE-S01"
+revision = 1
+title    = "A sentence stays under the word cap of its surface"
+layer    = "base"
+check    = "deterministic"
+kind     = "length"
+source   = "ste-derived"
+lineage  = ["STE 5.1", "STE 6.3", "STE 8.4", "STE 8.5", "STE 8.6", "STE 8.7"]
+severity = { runtime = "warning", explanatory = "advisory" }
+message  = "This sentence has {words} words. The cap on the {surface} surface is {max}. Split it, or move the aside into its own sentence."
+rationale = """
+A long sentence holds more than one idea, and a reader who executes the sentence has
+to decide which idea governs. STE caps a procedural sentence at 20 words and a
+descriptive one at 25. Words are counted the STE way (PLAN § 4.1): inline code, a
+placeholder, a number with its unit and a parenthetical each count as one word, and
+the parenthetical is checked on its own. Dash insertions are counted the same way as
+parentheticals, which is a framework extension, not an STE rule.
+"""
+
+[params]
+max_words = { runtime = 20, explanatory = 25 }
+
+[[examples]]
+bad  = "Before you merge the branch into the spec branch, run the whole suite again on the final commit, because the earlier run was against an older head and its result no longer tells you anything."
+good = "Run the whole suite again on the final commit. The earlier run was against an older head. Then merge `<feat-branch>` into `<spec-branch>`."

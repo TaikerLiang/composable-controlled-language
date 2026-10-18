@@ -1,0 +1,5 @@
+name    = "diamond-y"
+extends = ["base"]
+[severity]
+"BASE-S02" = { runtime = "error" }
+"BASE-S06" = "disabled"
