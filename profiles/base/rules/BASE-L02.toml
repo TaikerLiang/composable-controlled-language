@@ -1,0 +1,30 @@
+id          = "BASE-L02"
+revision    = 1
+title       = "A connective with two readings is replaced by the one meant"
+layer       = "base"
+check       = "deterministic"
+kind        = "phrase"
+source      = "framework"
+inspired_by = ["STE 1.1"]
+severity    = { runtime = "warning", explanatory = "advisory" }
+message     = "`{match}` has two readings ({readings}). Write the one you mean."
+rationale = """
+STE's first principle is one word, one meaning, enforced through its dictionary. This
+framework has no dictionary, but three connectives carry two readings that are two
+different execution timings: `once` (after, or one time), `since` (after, or
+because), `while` (during, or although). The list is deliberately short. `as` and
+`so` also have two readings but are too frequent and mostly clear in context, so they
+stay out.
+"""
+
+[params]
+phrases = ["once", "since", "while"]
+
+[params.readings]
+once  = "after / one time"
+since = "after / because"
+while = "during / although"
+
+[[examples]]
+bad  = "Once the suite passes, merge the branch."
+good = "After the suite passes, merge the branch."

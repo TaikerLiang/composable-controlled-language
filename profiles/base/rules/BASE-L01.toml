@@ -1,0 +1,26 @@
+id       = "BASE-L01"
+revision = 1
+title    = "A glossary concept uses its canonical term in scope"
+layer    = "base"
+check    = "deterministic"
+kind     = "glossary"
+source   = "ste-derived"
+lineage  = ["STE 1.11", "STE 9.4"]
+severity = { runtime = "error", explanatory = "warning" }
+message  = "`{match}` is not the term for `{concept}`. Write `{canonical}`: {meaning}."
+rationale = """
+STE leaves technical nouns and verbs to the writer's own glossary and asks for the
+same wording every time the same thing is meant. A profile's glossary declares
+concepts with a canonical term, allowed aliases, forbidden synonyms and a scope
+(surfaces and clause). The base layer has no concepts, so this rule is silent until a
+profile adds some. With `clause = "action"` a forbidden word is flagged only as the
+head of an action clause: `Address the finding.` fires, `This section addresses the
+problem.` does not.
+"""
+
+[params]
+message_no_canonical = "`{match}` is not a term on this surface: {meaning}."
+
+[[examples]]
+bad  = "Address the finding before you push."
+good = "Fix the finding before you push."

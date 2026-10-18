@@ -1,0 +1,24 @@
+id       = "BASE-S03"
+revision = 1
+title    = "One instruction per sentence"
+layer    = "base"
+check    = "deterministic"
+kind     = "pattern"
+source   = "ste-derived"
+lineage  = ["STE 5.2"]
+severity = { runtime = "warning", explanatory = "advisory" }
+message  = "`{match}` joins two instructions. Write one instruction per sentence, or use a numbered list."
+rationale = """
+A procedural sentence gives one instruction. Two instructions joined by a sequence
+marker (`then`, `and then`, `after that`) are two steps, and a reader can execute
+the second before finishing the first. Both clause heads must be imperative verbs
+from the glossary's `imperative_verbs` list. Two imperatives joined by a bare `and`
+are BASE-S08, because STE allows them when the actions are simultaneous.
+"""
+
+[params]
+pattern = '^(?:{{verbs}})\b[^.]*?[\s,]+(?P<match>and then|then|after that)\s+(?:{{verbs}})\b'
+
+[[examples]]
+bad  = "Open the PR and then merge it."
+good = "Open the PR. Merge it."

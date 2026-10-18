@@ -1,0 +1,30 @@
+id          = "BASE-M01"
+revision    = 1
+title       = "No vague qualifier on an instruction"
+layer       = "base"
+check       = "deterministic"
+kind        = "phrase"
+source      = "framework"
+inspired_by = ["STE 4.1", "STE 5.3"]
+severity    = { runtime = "error", explanatory = "advisory" }
+message     = "`{match}` leaves the decision to the reader. State the condition, or remove the qualifier."
+rationale = """
+`if possible`, `as needed`, `try to` and their kin hand the reader a decision the
+writer did not make. Two readers make it differently and both have obeyed. STE asks
+for sentences that name the action and are not abstract, but STE itself approves
+`as necessary`, so this is a framework rule, not an STE rule. Frequency adverbs such
+as `usually` are not here: they are valid descriptive English and belong to the
+agent layer, which flags them only when they control a runtime decision.
+"""
+
+[params]
+phrases = [
+  "if possible", "where possible", "when possible", "whenever possible",
+  "when appropriate", "where appropriate", "as appropriate", "if appropriate",
+  "as needed", "as necessary", "if needed", "if necessary", "when ready",
+  "try to", "tries to", "attempt to", "attempts to",
+]
+
+[[examples]]
+bad  = "Rebase the branch if possible before you push."
+good = "If the branch is behind main, rebase it before you push."

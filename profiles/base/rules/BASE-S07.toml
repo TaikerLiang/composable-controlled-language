@@ -1,0 +1,38 @@
+id       = "BASE-S07"
+revision = 1
+title    = "A vertical list has a lead-in with a colon and self-contained items"
+layer    = "base"
+check    = "deterministic"
+kind     = "list"
+source   = "ste-derived"
+lineage  = ["STE 4.3"]
+severity = { runtime = "warning", explanatory = "warning" }
+message  = "A list item ends in a conjunction, or the lead-in lacks its colon."
+rationale = """
+In a vertical list every item connects to the lead-in sentence, and the lead-in ends
+with a colon. An item that ends in `and` or `or` is half a sentence that depends on
+the next item. A list that follows a sentence ending in a period is not connected to
+anything.
+"""
+
+[params]
+dangling_conjunction = true
+lead_in_colon = true
+
+[params.messages]
+dangling = "This list item ends in `{match}`. Every item stands alone."
+lead_in  = "The sentence before this list ends in `{match}`. A list lead-in ends with a colon."
+
+[[examples]]
+bad = """
+Do these.
+
+- open the PR, and
+- merge it
+"""
+good = """
+Do these:
+
+- open the PR
+- merge it
+"""

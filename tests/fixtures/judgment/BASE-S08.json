@@ -1,0 +1,10 @@
+[
+  {"text": "Open the PR and merge it.", "surface": "runtime", "expected": "violates",
+   "why": "Merging follows opening; the actions are sequential."},
+  {"text": "Hold the lever and turn the knob.", "surface": "runtime", "expected": "ok",
+   "why": "Both hands act at the same time; STE's simultaneous exception."},
+  {"text": "Read the marker and delete it.", "surface": "runtime", "expected": "violates",
+   "why": "You cannot delete what you have not read; sequential."},
+  {"text": "Watch the log and keep the lock held.", "surface": "runtime", "expected": "ok",
+   "why": "Both continue together."}
+]

@@ -1,0 +1,22 @@
+id       = "BASE-S02"
+revision = 1
+title    = "No semicolon in prose"
+layer    = "base"
+check    = "deterministic"
+kind     = "char"
+source   = "ste-derived"
+lineage  = ["STE 8.1"]
+severity = { runtime = "error", explanatory = "warning" }
+message  = "A semicolon joins two sentences into one. Write two sentences."
+rationale = """
+STE permits every standard punctuation mark except the semicolon, because the
+semicolon is the mark that lets a writer chain complete thoughts into one long
+sentence. A semicolon inside inline code is code and is not counted.
+"""
+
+[params]
+chars = [";"]
+
+[[examples]]
+bad  = "Open the PR; wait for the review."
+good = "Open the PR. Wait for the review."

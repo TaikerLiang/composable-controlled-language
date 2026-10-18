@@ -1,0 +1,33 @@
+id          = "BASE-M02"
+revision    = 1
+title       = "An obligation or prohibition uses its canonical form"
+layer       = "base"
+check       = "deterministic"
+kind        = "phrase"
+source      = "framework"
+inspired_by = ["STE 5.3"]
+severity    = { runtime = "error", explanatory = "advisory" }
+modality    = ["obligation", "prohibition"]
+message     = "`{match}` does not say whether this is an obligation or a recommendation. For an obligation, write the imperative or MUST. For a prohibition, write MUST NOT or NEVER."
+rationale = """
+`should`, `ought to`, `is expected to`, `needs to` sit between an obligation and a
+recommendation, and a reader who executes the sentence has to pick. The modality
+model (PLAN § 4.6) has four categories: obligation, prohibition, permission,
+possibility. This rule covers the first two and never touches `may`, `can`, `could`
+or `might`, because a possibility is content, not a weak obligation. STE puts
+instructions in the imperative and reserves `must` for safety and important
+conditions, so the obligation canonical here is a framework choice.
+"""
+
+[params]
+phrases = [
+  "should not", "shouldn't", "should", "ought to", "ought not",
+  "is expected to", "are expected to", "is not expected to", "are not expected to",
+  "needs to", "need to", "has to", "have to",
+  "is required to", "are required to", "is supposed to", "are supposed to",
+  "it is recommended", "is recommended to", "recommended that",
+]
+
+[[examples]]
+bad  = "You should run the suite before you merge."
+good = "Run the suite before you merge."

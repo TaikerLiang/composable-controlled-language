@@ -1,0 +1,24 @@
+id          = "BASE-S05"
+revision    = 1
+title       = "No stacked insertions in one sentence"
+layer       = "base"
+check       = "deterministic"
+kind        = "insertion"
+source      = "framework"
+inspired_by = ["STE 4.1", "STE 8.3"]
+severity    = { runtime = "warning", explanatory = "advisory" }
+message     = "This sentence stacks insertions: {kinds}. Keep one aside per sentence, or make the aside its own sentence."
+rationale = """
+STE lists seven permitted uses of parentheses, and nesting is none of them. The
+framework extends the idea to dash insertions, which this kind of prose uses the
+way STE uses parentheses. A sentence with two dash insertions, a parenthesis inside a
+parenthesis, or a parenthesis inside a dash insertion carries at least three ideas,
+and a reader has to decide which one is the instruction.
+"""
+
+[params]
+max_dash_insertions = 1
+
+[[examples]]
+bad  = "Merge the branch — the one QA used (not the spec branch) — into main."
+good = "Merge the QA branch into main. Do not merge the spec branch."

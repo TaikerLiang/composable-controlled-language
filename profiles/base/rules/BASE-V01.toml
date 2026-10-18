@@ -1,0 +1,49 @@
+id       = "BASE-V01"
+revision = 1
+title    = "No phrasal verb where one verb does"
+layer    = "base"
+check    = "deterministic"
+kind     = "phrase"
+source   = "ste-derived"
+lineage  = ["STE 9.3"]
+severity = { runtime = "warning", explanatory = "advisory" }
+message  = "`{match}` is a phrasal verb. Use one verb: {hint}."
+rationale = """
+A phrasal verb's meaning is not the sum of its words, and the particle often lands
+far from the verb. STE excludes them. The list is data, and a profile's glossary
+`allow` keeps the domain terms that are the right word (`roll back`, `set up` for a
+tool that is set up).
+"""
+
+[params]
+inflect_first = true
+phrases = [
+  "spin up", "kick off", "reach out", "dive into", "circle back", "end up", "figure out",
+  "wrap up", "carry out", "put off", "look into", "come up with", "get rid of", "hold off",
+  "go ahead", "run into", "sort out", "set up", "check out",
+]
+
+[params.hints]
+"spin up" = "start"
+"kick off" = "start"
+"reach out" = "contact"
+"dive into" = "read"
+"circle back" = "return"
+"end up" = "become"
+"figure out" = "determine"
+"wrap up" = "finish"
+"carry out" = "do"
+"put off" = "delay"
+"look into" = "examine"
+"come up with" = "propose"
+"get rid of" = "remove"
+"hold off" = "wait"
+"go ahead" = "proceed"
+"run into" = "meet"
+"sort out" = "settle"
+"set up" = "configure"
+"check out" = "examine"
+
+[[examples]]
+bad  = "Spin up the stub before the run."
+good = "Start the stub before the run."
