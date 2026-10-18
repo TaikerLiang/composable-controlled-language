@@ -106,6 +106,17 @@ found on the linted surfaces, and judgment rules were not run. It does not mean
 the instruction is correct, complete or safe. `Delete the database.` passes
 every rule in this framework.
 
+## Licence and notice
+
+The code, the rule files, the glossaries, the fixtures and the documents in
+this repository are released under the MIT licence (see `LICENSE`).
+
+This project is not affiliated with or endorsed by ASD, the AeroSpace and
+Defence Industries Association of Europe. ASD-STE100 is published by ASD and
+is not distributed here. The rules in `profiles/base` cite STE rule numbers and
+paraphrase them in this project's own words. The licence covers only what this
+repository contains.
+
 ## Documents
 
 - `docs/PLAN.md`: the design, its rulings, and the rule catalogue.
