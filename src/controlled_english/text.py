@@ -48,7 +48,8 @@ UNITS = {"s", "ms", "min", "h", "d", "kb", "mb", "gb", "%", "px", "pt", "x", "wo
 
 _FILL = "\x01"  # same-length mask for spans that must not influence splitting
 
-RE_CODE = re.compile(r"`+[^`]*`+")
+# CommonMark code span: a backtick run closes only at a run of the same length.
+RE_CODE = re.compile(r"(?<!`)(`+)(?!`)(.+?)(?<!`)\1(?!`)", re.S)
 RE_HTML_COMMENT = re.compile(r"<!--.*?-->", re.S)
 RE_IMAGE = re.compile(r"!\[([^\]]*)\]\([^)]*\)")
 RE_LINK = re.compile(r"\[([^\]]+)\]\((?:[^()\s]|\([^)]*\))*\)")

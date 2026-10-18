@@ -201,6 +201,14 @@ def test_wrapped_sentence_counts_once_and_positions_point_at_the_start():
     ]
 
 
+def test_code_span_closes_at_a_run_of_the_opening_length():
+    got = sentences("Use ``foo `;` bar`` now.\n")
+    assert [s.flat for s in got] == ["Use CODESPAN now."]
+    assert got[0].words == 3
+    # an unmatched run is literal text, not a span swallowing the rest of the line
+    assert [s.flat for s in sentences("A ``b` c; d.\n")] == ["A ``b` c; d."]
+
+
 def test_html_comment_inline_is_dropped_from_raw_and_text():
     got = sentences("Run it. <!-- expect: X -->\n")
     assert got[0].raw == "Run it." and got[0].text == "Run it."
