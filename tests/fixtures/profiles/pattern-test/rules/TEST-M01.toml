@@ -1,0 +1,13 @@
+id = "TEST-M01"
+revision = 1
+title = "may with a non-actor subject"
+layer = "pattern-test"
+check = "deterministic"
+kind = "pattern"
+source = "framework"
+severity = "error"
+message = "`{match}` with a non-actor subject states a possibility."
+rationale = "Exercises the subject classifier."
+[params]
+pattern = '\b(?P<match>may)\b'
+subject = "non-actor"

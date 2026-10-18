@@ -1,0 +1,2 @@
+name = "cycle-b"
+extends = ["cycle-a"]

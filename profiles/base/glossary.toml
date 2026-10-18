@@ -1,0 +1,23 @@
+# Base glossary: the modality taxonomy's canonical forms (PLAN § 4.6) and the
+# imperative verbs the one-instruction rules recognise as clause heads. No
+# concepts: vocabulary control belongs to profiles. Nothing here is copied from
+# the ASD-STE100 dictionary.
+
+imperative_verbs = [
+  "add", "answer", "apply", "ask", "build", "change", "check", "choose", "close",
+  "commit", "compare", "configure", "confirm", "continue", "copy", "count", "create", "declare",
+  "define", "delete", "deny", "disable", "edit", "enable", "exclude", "exit", "fix", "follow",
+  "include", "install", "join", "keep", "leave", "link", "list", "load", "make", "mark",
+  "measure", "merge", "move", "name", "note", "open", "pick", "post", "print", "publish", "pull",
+  "push", "put", "read", "rebase", "record", "release", "remove", "rename", "repeat", "replace",
+  "reply", "report", "request", "resolve", "restart", "retry", "return", "review", "run", "save",
+  "select", "send", "set", "show", "skip", "split", "start", "stop", "tag", "test", "update",
+  "use", "verify", "wait", "write",
+  "hold", "turn", "press", "lift", "connect", "disconnect", "attach", "detach",
+]
+
+[modality]
+obligation  = ["MUST"]                       # plus the bare imperative
+prohibition = ["MUST NOT", "NEVER", "DO NOT"]
+permission  = []                             # bound by a profile (Roz Gate: MAY)
+possibility = []                             # bound by a profile (Roz Gate: CAN)

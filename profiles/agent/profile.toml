@@ -1,0 +1,4 @@
+# Layer 2: generic agent-language policy. Rules land in v0.2 (ROADMAP M2); the
+# skeleton ships now so the extends chain is real.
+name    = "agent"
+extends = ["base"]

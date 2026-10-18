@@ -1,0 +1,22 @@
+actors = ["patrol", "QA", "the reviewer", "the human", "you"]
+
+[modality]
+permission  = ["MAY"]
+possibility = ["CAN"]
+
+[allow]
+"BASE-V01" = ["roll back"]
+
+[[concept]]
+name      = "fix-finding"
+canonical = "fix"
+allowed   = ["fix", "repair"]
+forbidden = ["address", "handle", "deal with"]
+meaning   = "change code so the finding no longer applies"
+scope     = { surfaces = ["runtime"], clause = "action" }
+
+[[concept]]
+name      = "authorization"
+forbidden = ["approve"]
+meaning   = "gate labels are the authorization vocabulary"
+scope     = { surfaces = ["runtime"], clause = "any" }
