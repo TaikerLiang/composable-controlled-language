@@ -1,2 +1,9 @@
 # The standard is read locally and never distributed (ASD copyright)
 references/*.pdf
+
+.venv/
+__pycache__/
+*.egg-info/
+dist/
+.pytest_cache/
+.ruff_cache/
