@@ -123,6 +123,8 @@ def collect_files(
     """(absolute path, root-relative path, surface) for every prose file under `paths`."""
     out = []
     for p in paths or [cfg.root]:
+        if not p.exists():
+            raise ConfigError(f"{p}: no such file or directory")
         p = p.resolve()
         candidates = (
             [p]

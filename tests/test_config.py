@@ -88,3 +88,10 @@ def test_collect_files_skips_hidden_and_unmatched(tmp_path):
     forced = collect_files(cfg, [tmp_path / "hooks" / "d.md"], force_surface="runtime")
     assert [(rel, s) for _, rel, s in forced] == [("hooks/d.md", "runtime")]
     assert [Path(a).name for a, _, _ in collect_files(cfg, [tmp_path / "hooks" / "d.md"])] == []
+
+
+def test_collect_files_rejects_a_missing_path(tmp_path):
+    (tmp_path / ".controlled-english.toml").write_text(CONFIG)
+    cfg = load_config(None, tmp_path)
+    with pytest.raises(ConfigError, match="missing.md: no such file"):
+        collect_files(cfg, [tmp_path / "missing.md"])

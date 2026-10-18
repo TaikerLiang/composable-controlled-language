@@ -32,6 +32,11 @@ def repo(tmp_path, monkeypatch):
     return tmp_path
 
 
+def test_lint_missing_path_is_exit_2(repo, capsys):
+    assert main(["lint", "commands/gone.md"]) == 2
+    assert "gone.md: no such file or directory" in capsys.readouterr().err
+
+
 def test_lint_human_shape_and_exit_codes(repo, capsys):
     assert main(["lint"]) == 1
     out, err = capsys.readouterr()
