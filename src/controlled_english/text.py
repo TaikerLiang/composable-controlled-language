@@ -65,7 +65,9 @@ RE_LIST_ITEM = re.compile(r"^(\s*)([-*+]|\d+[.)])\s+(.*)$")
 RE_TABLE_SEP = re.compile(r"^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$")
 RE_LINK_DEF = re.compile(r"^\s*\[[^\]]+\]:\s+\S+")
 RE_HR = re.compile(r"^\s*([-*_])(\s*\1){2,}\s*$")
-RE_HTML_BLOCK = re.compile(r"^\s*</?[a-zA-Z][^>]*>\s*$")
+# A complete open or close tag alone on a line starts an HTML block (CommonMark
+# start condition 6/7); the block runs to the next blank line.
+RE_HTML_BLOCK = re.compile(r"^\s*</?[a-zA-Z][a-zA-Z0-9-]*(?:\s[^>]*)?/?>\s*$")
 RE_NUM_UNIT = re.compile(r"^\d+(?:[.,]\d+)*$")
 RE_ALNUM = re.compile(r"[^\W_]", re.UNICODE)
 RE_EMPH_STRONG = re.compile(r"(\*\*|__)(?=\S)(.+?)(?<=\S)\1")
@@ -436,6 +438,7 @@ def parse(
     blank_since_para = 0
     in_fence = None
     in_comment = False
+    in_html = False
 
     def flush_para() -> None:
         nonlocal para, last_para_sentences
@@ -470,6 +473,10 @@ def parse(
             if "-->" in line:
                 in_comment = False
             continue
+        if in_html:
+            in_html = bool(stripped)
+            if in_html:
+                continue
         if in_fence is not None:
             if stripped.startswith(in_fence):
                 in_fence = None
@@ -489,12 +496,12 @@ def parse(
             flush_item()
             blank_since_para += 1
             continue
-        if (
-            stripped.startswith(">")
-            or RE_LINK_DEF.match(line)
-            or RE_HR.match(line)
-            or RE_HTML_BLOCK.match(line)
-        ):
+        if RE_HTML_BLOCK.match(line):
+            flush_para()
+            close_list()
+            in_html = True
+            continue
+        if stripped.startswith(">") or RE_LINK_DEF.match(line) or RE_HR.match(line):
             flush_para()
             close_list()
             continue

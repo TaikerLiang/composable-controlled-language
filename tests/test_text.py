@@ -32,6 +32,16 @@ def test_fenced_code_html_and_link_defs_are_skipped():
     assert [s.text for s in got] == ["Run it."]
 
 
+def test_html_block_runs_to_the_next_blank_line():
+    src = "<div>\nhidden; prose.\n</div>\n\nSeen.\n"
+    assert [s.text for s in sentences(src)] == ["Seen."]
+    # CommonMark: a blank line ends the block, so Markdown inside <details> is prose
+    src = "<details>\n<summary>More</summary>\n\nInside; shown.\n\n</details>\n"
+    assert [s.text for s in sentences(src)] == ["Inside; shown."]
+    # an autolink alone on a line is prose, not a block opener
+    assert [s.flat for s in sentences("<https://x.y>\nNext.\n")] == ["URLSPAN Next."]
+
+
 def test_multiline_html_comment_is_skipped():
     src = "<!--\nhidden. words\n-->\nSeen.\n"
     assert [s.text for s in sentences(src)] == ["Seen."]

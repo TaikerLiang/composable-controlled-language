@@ -12,7 +12,7 @@ written under another version is refused.
 
 | element | treatment | source |
 |---|---|---|
-| fenced code, HTML blocks and comments, link reference definitions, horizontal rules | skipped | framework |
+| fenced code, HTML blocks (a tag alone on a line, to the next blank line) and comments, link reference definitions, horizontal rules | skipped | framework |
 | blockquotes | quoted text, skipped | framework, by analogy with STE 8.6 |
 | YAML front matter | string values of `front_matter_keys` (default `description`) are prose, other keys are skipped | framework |
 | headings | one word, never length-checked, phrase rules apply | derived, STE 8.6 |
